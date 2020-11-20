@@ -35,8 +35,8 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-          String uri = request.getRequestURI();
-          log.info("请求的uri为:" + uri);
+//          String uri = request.getRequestURI();
+//          log.info("请求的uri为:" + uri);
 //        if (NOT_INTERCEPT_URI.contains(uri)) {
 //            log.info("不拦截的请求url为:" + uri);
 //            return true;

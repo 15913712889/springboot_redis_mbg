@@ -26,7 +26,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer  {
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(loginInterceptor);
 
         interceptorRegistration.addPathPatterns("/**")//拦截的访问路径，拦截所有
-                .excludePathPatterns("/layui-v2.5.6/**");//排除的请求路径，排除静态资源路径
+                .excludePathPatterns("static/**/**");//排除的请求路径，排除静态资源路径
 
     }
 }

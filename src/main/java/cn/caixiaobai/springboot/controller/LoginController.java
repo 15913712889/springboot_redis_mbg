@@ -13,6 +13,6 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String Login(){
-        return "/layui/Demo01";
+        return "/login/login";
     }
 }
