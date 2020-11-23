@@ -12,51 +12,66 @@
     <link href="static/css/login/styles.css" th:href="@{/css/login/styles.css}" rel="stylesheet" type="text/css" />
     <link href="static/css/login/demo.css" th:href="@{/css/login/demo.css}" rel="stylesheet" type="text/css" />
     <link href="static/css/login/loaders.css" th:href="@{/css/login/loaders.css}" rel="stylesheet" type="text/css" />
+    <style>
+        @media only screen and (max-width: 500px) {
+            /*单手机模式时改变输入框的宽度*/
+            body .login_fields input[type='text'], body .login_fields input[type='password'] {
+                width: 100px;
+                margin-left: 0;
+            }
+            .layui-input-block {
+                margin-left: 10px;
+            }
+        }
+    </style>
 
+    <script type="text/javascript">
+        window.ctx="[[@{/}]]";
+    </script>
 </head>
 <body>
-<div class='login'>
-    <div class="layui-form-item">
-        <form class="layui-form" action="" id="loginForm">
-            <div class='login_title' style="text-align: center;font-size: 30px;">
-                <span>登录</span>
-            </div>
-            <div class='login_fields'>
-                <div class="layui-form-item">
-                    <div class='login_fields__user'>
-                        <div class='icon'>
-                            <img alt="" src='img/user_icon_copy.png' th:src="@{/img/user_icon_copy.png}">
+    <div class='login'>
+        <div class="layui-form-item">
+            <form class="layui-form" action="" id="loginForm">
+                <div class='login_title' style="text-align: center;font-size: 30px;">
+                    <span>登录</span>
+                </div>
+                <div class='login_fields'>
+                    <div class="layui-form-item">
+                        <div class='login_fields__user'>
+                            <div class='icon'>
+                                <img alt="" src='img/user_icon_copy.png' th:src="@{/img/user_icon_copy.png}">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" id="loginId" name="loginId" required lay-verify="required" placeholder="请填写用户名" autocomplete="off">
+                            </div>
                         </div>
-                        <div class="layui-input-inline">
-                            <input type="text" id="loginId" name="loginId" required lay-verify="required" placeholder="请填写用户名" autocomplete="off">
+                    </div>
+                    <div class="layui-form-item">
+                        <div class='login_fields__password'>
+                            <div class='icon'>
+                                <img alt="" src='img/lock_icon_copy.png' th:src="@{/img/lock_icon_copy.png}">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="password" id="password" name="password" required lay-verify="required" onfocus="this.type='password'" placeholder="请填写密码" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class='login_fields__submit' align="center">
+                            <div class="layui-input-block" align="center">
+                                <!--<input type='button' value='登录'>-->
+                                <button class="layui-btn" lay-submit lay-filter="login">登录</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <div class='login_fields__password'>
-                        <div class='icon'>
-                            <img alt="" src='img/lock_icon_copy.png' th:src="@{/img/lock_icon_copy.png}">
-                        </div>
-                        <div class="layui-input-inline">
-                            <input type="password" id="password" name="password" required lay-verify="required" onfocus="this.type='password'" placeholder="请填写密码" autocomplete="off">
-                        </div>
-                    </div>
+                <div class='disclaimer' align="center">
+                    <p>欢迎登录管理系统</p>
                 </div>
-                <div class="layui-form-item">
-                    <div class='login_fields__submit' align="center">
-                        <div class="layui-input-block">
-                            <!--<input type='button' value='登录'>-->
-                            <button class="layui-btn" lay-submit lay-filter="login">登录</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='disclaimer' align="center">
-                <p>欢迎登录管理系统</p>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 
 

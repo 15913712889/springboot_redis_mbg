@@ -151,7 +151,8 @@ body .login_fields input[type='password'],body .login_fields input[type='text'] 
 }
 body .login_fields input[type='text'], body .login_fields input[type='password'] {
   color: #afb1be;
-  width: 230px;
+  width: 140px;
+  margin-left: 80px;
   margin-top: -2px;
   background: rgba(57, 61, 82, 0);
   left: 0;
