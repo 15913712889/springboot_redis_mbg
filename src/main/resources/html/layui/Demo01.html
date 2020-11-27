@@ -7,6 +7,8 @@
 	<script type="text/javascript" src=",,/,,/static/layui-v2.5.6/layui/layui.js" th:src="@{/layui-v2.5.6/layui/layui.js}" ></script>
     <!-- th:href="@{/static/layui-v2.5.6/layui/css/layui.css}" -->
     <link rel="stylesheet" href="../../static/layui-v2.5.6/layui/css/layui.css" th:href="@{/layui-v2.5.6/layui/css/layui.css}"/>
+    <!--导入jquery-->
+    <script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.js}"></script>
     <!--获取当前项目名-->
     <script type="text/javascript">
         window.ctx="[[@{/}]]";
@@ -87,7 +89,30 @@
         //JavaScript代码区域
         layui.use('element', function(){
             var element = layui.element;
-
+            $.ajax({
+                url:ctx+'demo/queryRedis',
+                type:'POST', //GET
+                async:false,    //或false,是否异步
+                data:{
+                    // name:'llc',
+                    // age:22
+                },
+                timeout:5000,    //超时时间
+                dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                // beforeSend:function(xhr){
+                //     console.log(xhr)
+                //     console.log('发送前')
+                // },
+                success:function(data,textStatus,jqXHR){
+                    console.log(data);
+                    alert(console.dir(data));
+                },
+                error:function(xhr,textStatus){
+                    console.log('错误',xhr.responseText);
+                    // console.log(xhr);
+                    // console.log(textStatus);
+                }
+            });
         });
     </script>
 </body>

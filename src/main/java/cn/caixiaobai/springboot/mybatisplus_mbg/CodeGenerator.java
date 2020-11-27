@@ -72,7 +72,7 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
 
         //设置生成哪些表,如果不设置的话，默认生成当前数据源中的所有表
-        strategy.setInclude("roles");
+        //strategy.setInclude("roles");
 
         //设置包的命名规则
         strategy.setNaming(NamingStrategy.underline_to_camel);

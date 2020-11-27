@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.*;
  * @Date: 2020/10/19 14:55
  * @Version 1.0
  */
-@Configuration
+//@Configuration 测试使用暂时关闭拦截器
 public class MyWebMvcConfig implements WebMvcConfigurer  {
 
     @Autowired
