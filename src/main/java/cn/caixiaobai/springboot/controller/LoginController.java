@@ -1,18 +1,13 @@
 package cn.caixiaobai.springboot.controller;
 
-import cn.caixiaobai.springboot.result.SystemResult;
 import cn.caixiaobai.springboot.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @Author: caixiaobai
