@@ -222,4 +222,15 @@ public class OperationRedisHashController {
         
         return SystemResult.ok();
     }
+
+    @RequestMapping(value="/getHash15",method = RequestMethod.POST)
+    @ResponseBody
+    public SystemResult demo15(){
+        //获取hash操作对象
+        HashOperations hashOperations = redisTemplate.opsForHash();
+
+
+
+        return SystemResult.ok();
+    }
 }
