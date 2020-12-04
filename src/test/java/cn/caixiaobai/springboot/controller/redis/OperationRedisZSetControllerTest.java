@@ -5,12 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.DefaultTypedTuple;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.connection.RedisZSetCommands;
+import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -302,6 +303,111 @@ public class OperationRedisZSetControllerTest {
         //获取元素的score列的值
         Double a1 = zSetOperations.score("zset:test:demo14", "A");
 
+        System.out.println();
+
+    }
+
+    @Test
+    public void demo15(){
+
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+
+
+        Boolean a = zSetOperations.add("zset:test:demo15", "A", 1);
+        Boolean b = zSetOperations.add("zset:test:demo15", "B", 2);
+        Boolean c = zSetOperations.add("zset:test:demo15", "C", 3);
+        Boolean d = zSetOperations.add("zset:test:demo15", "D", 4);
+        Boolean e = zSetOperations.add("zset:test:demo15", "E", 5);
+        //根据集合下标移除区间元素。下标是从0开始，返回的是移除的个数
+        //Long aLong = zSetOperations.removeRange("zset:test:demo15", 0, 2);
+        //通过score数值区间移除元素，也就是通过score列的值得排序来移除区间元素、返回的是移除的个数
+        Long aLong = zSetOperations.removeRangeByScore("zset:test:demo15", 1, 3);
+
+        System.out.println();
+
+    }
+
+    @Test
+    public void demo16(){
+
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+
+
+        Boolean a = zSetOperations.add("zset:test:demo16", "A", 1);
+        Boolean b = zSetOperations.add("zset:test:demo16", "B", 2);
+        Boolean c = zSetOperations.add("zset:test:demo16", "C", 3);
+        Boolean d = zSetOperations.add("zset:test:demo16", "D", 4);
+        Boolean e = zSetOperations.add("zset:test:demo16", "E", 5);
+        Boolean f = zSetOperations.add("zset:test:demo1616", "F", 6);
+        Boolean g = zSetOperations.add("zset:test:demo1616", "G", 7);
+        Boolean h = zSetOperations.add("zset:test:demo1616", "H", 9);
+        Boolean i = zSetOperations.add("zset:test:demo161616", "I", 10);
+        Boolean j = zSetOperations.add("zset:test:demo16161616", "J", 11);
+        //根据集合下标移除区间元素。下标是从0开始
+        //将两个集合的数据放到，第三个集合中，如果第三个集合不存在就会创建，如果存在会添加到里面，重复value的会覆盖并修改score的值，返回的是前两个集合中的元素个数之和
+        Long aLong = zSetOperations.unionAndStore("zset:test:demo16", "zset:test:demo1616", "zset:test:demo161616");
+
+        List l = new ArrayList<>();
+        l.add("zset:test:demo161616");
+        l.add("zset:test:demo16161616");
+        //和上面这个方法一样，将多个集合放在最后一个集合中，返回的是所有集合元素之和
+        Long aLong1 = zSetOperations.unionAndStore("zset:test:demo16", l, "zset:test:demo16Last");
+        //这三个方法暂时不了解有什么区别，和上面这个方法一样的效果
+        Long aLong2 = zSetOperations.unionAndStore("zset:test:demo16", l, "zset:test:demo16Last2", RedisZSetCommands.Aggregate.SUM);
+        Long aLong3 = zSetOperations.unionAndStore("zset:test:demo16", l, "zset:test:demo16Last3", RedisZSetCommands.Aggregate.MIN);
+        Long aLong4 = zSetOperations.unionAndStore("zset:test:demo16", l, "zset:test:demo16Last4", RedisZSetCommands.Aggregate.MAX);
+
+        //该方法暂不了解
+        Long aLong5 = zSetOperations.unionAndStore("zset:test:demo16", l, "zset:test:demo16Last5", RedisZSetCommands.Aggregate.MAX, RedisZSetCommands.Weights.of(3));
+
+        System.out.println();
+
+    }
+
+
+    @Test
+    public void demo17(){
+
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+
+
+        Boolean a = zSetOperations.add("zset:test:demo17", "A", 1);
+        Boolean b = zSetOperations.add("zset:test:demo1717", "B", 2);
+        Boolean c = zSetOperations.add("zset:test:demo171717", "C", 3);
+        Boolean d = zSetOperations.add("zset:test:demo17171717", "D", 4);
+        Boolean e = zSetOperations.add("zset:test:demo1717171717", "E", 5);
+        //获取2个变量的交集存放到第3个变量里面。
+        Long aLong = zSetOperations.intersectAndStore("zset:test:demo17", "zset:test:demo1717", "zset:test:demo17last");
+        // 获取多个变量的交集存放到第3个变量里面。
+        List l = new ArrayList();
+        l.add("zset:test:demo17171717");
+        l.add("zset:test:demo1717171717");
+        Long aLong2 = zSetOperations.intersectAndStore("zset:test:demo17", l, "zset:test:demo17last2");
+        System.out.println();
+
+    }
+
+
+    @Test
+    public void demo18(){
+
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+
+
+        Boolean a = zSetOperations.add("zset:test:demo18", "A", 1);
+        Boolean b = zSetOperations.add("zset:test:demo18", "B", 2);
+        Boolean c = zSetOperations.add("zset:test:demo18", "C", 3);
+        //获取该集合所有value值
+        Set set = zSetOperations.rangeByLex("zset:test:demo18", RedisZSetCommands.Range.range());
+        //该方法还不理解
+        zSetOperations.rangeByLex("zset:test:demo18", RedisZSetCommands.Range.range(), RedisZSetCommands.Limit.limit());
+
+        //获取到value和score
+        Cursor<ZSetOperations.TypedTuple<Object>> value1 = zSetOperations.scan("zset:test:demo18", ScanOptions.scanOptions().match("A").build());
+        while (value1.hasNext()){
+            ZSetOperations.TypedTuple<Object> typedTuple = value1.next();
+            System.out.println("通过scan(K key, ScanOptions options)方法获取匹配的值:" + typedTuple.getValue()+"\t"+typedTuple.getScore());
+        }
         System.out.println();
 
     }
