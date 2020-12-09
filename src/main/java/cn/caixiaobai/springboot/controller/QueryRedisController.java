@@ -1,9 +1,9 @@
 package cn.caixiaobai.springboot.controller;
 
-import cn.caixiaobai.springboot.dto.Users;
 import cn.caixiaobai.springboot.mapper.UserMapper;
 import cn.caixiaobai.springboot.pojo.User;
 import cn.caixiaobai.springboot.result.SystemResult;
+import cn.caixiaobai.springboot.service.QueryRedisControllerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * @Author: caixiaobai
@@ -26,6 +26,9 @@ public class QueryRedisController {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private QueryRedisControllerService queryRedisControllerService;
 
     @RequestMapping(value = "/demo/queryRedis",method = RequestMethod.POST)
     @ResponseBody
@@ -54,7 +57,7 @@ public class QueryRedisController {
 
        // listOperations.set("list_redis",1,u.get(0).toString());
 
-        Map<String,String> map=new HashMap<String,String>();
+        //Map<String,String> map=new HashMap<String,String>();
 //        map.put("key1","value1");
 //        map.put("key2","value2");
 //        map.put("key3","value3");
@@ -91,5 +94,38 @@ public class QueryRedisController {
 //            System.out.println("通过scan(H key, ScanOptions options)方法获取匹配键值对:" + entry.getKey() + "---->" + entry.getValue());
 //        }
         return SystemResult.ok();
+    }
+
+
+    /**
+     * 基础方法实现缓存，基于对象
+     * @return
+     */
+    @RequestMapping(value = "/demo/queryRedisTest02",method = RequestMethod.POST)
+    @ResponseBody
+    public SystemResult Demo02(){
+
+        if(redisTemplate.hasKey("QueryRedisController")){
+            System.out.println("=====存在");
+            Object o = redisTemplate.opsForHash().get("QueryRedisController", "Demo02");
+            List<User> users = (List<User>) o;
+            return SystemResult.build(100,"redis库数据！",users);
+        }else{
+            System.out.println("====不存在");
+            List<User> users = userMapper.selectList(null);
+
+            redisTemplate.opsForHash().put("QueryRedisController","Demo02",users);
+
+            return SystemResult.build(100,"数据库数据！",users);
+        }
+    }
+
+    @RequestMapping(value = "/demo/queryRedisTest03",method = RequestMethod.POST)
+    @ResponseBody
+    public SystemResult Demo03(String userName){
+
+        User users = queryRedisControllerService.Demo03(userName);
+
+        return SystemResult.ok(users);
     }
 }
