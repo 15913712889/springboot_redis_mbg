@@ -120,6 +120,11 @@ public class QueryRedisController {
         }
     }
 
+    /**
+     * ServiceImpl中用注解实现缓存
+     * @param userName
+     * @return
+     */
     @RequestMapping(value = "/demo/queryRedisTest03",method = RequestMethod.POST)
     @ResponseBody
     public SystemResult Demo03(String userName){
@@ -127,5 +132,33 @@ public class QueryRedisController {
         User users = queryRedisControllerService.Demo03(userName);
 
         return SystemResult.ok(users);
+    }
+
+    /**
+     * ServiceImpl中用注解实现缓存  @Cacheable
+     *
+     * @return
+     */
+    @RequestMapping(value = "/demo/queryRedisTest04",method = RequestMethod.POST)
+    @ResponseBody
+    public SystemResult Demo04(){
+
+        Integer integer = queryRedisControllerService.Demo04();
+
+        return SystemResult.ok(integer);
+    }
+
+    /**
+     * ServiceImpl中用注解实现缓存   @CachePut
+     *
+     * @return
+     */
+    @RequestMapping(value = "/demo/queryRedisTest05",method = RequestMethod.POST)
+    @ResponseBody
+    public SystemResult Demo05(){
+
+        Integer integer = queryRedisControllerService.Demo05();
+
+        return SystemResult.ok(integer);
     }
 }

@@ -11,4 +11,8 @@ import java.util.List;
 public interface QueryRedisControllerService {
 
     public User Demo03(String userName);
+
+    Integer Demo04();
+
+    Integer Demo05();
 }
