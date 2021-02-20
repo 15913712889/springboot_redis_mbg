@@ -25,7 +25,7 @@ public class CodeGenerator {
         //设置生成的目录
         globalConfig.setOutputDir(System.getProperty("user.dir") + "/src/main/java");
         //设置作者
-        globalConfig.setAuthor("caixiaobai");
+        globalConfig.setAuthor("蔡序强");
         //生成文件后打开文件所在文件的文件夹下
         globalConfig.setOpen(true);
         //是否覆盖原来生成的文件
@@ -46,8 +46,8 @@ public class CodeGenerator {
         DataSourceConfig dsc = new DataSourceConfig();
         //设置数据库配置
         dsc.setDbType(DbType.MYSQL);
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUrl("jdbc:mysql:///springboot_redis_mbg?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8&useSSL=false");
+        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/InMgn?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8&useSSL=false");
         dsc.setUsername("root");
         dsc.setPassword("root");
 
@@ -61,10 +61,18 @@ public class CodeGenerator {
         //设置模块的父包
         pc.setParent("cn.caixiaobai");
         //设置实体类的的包名
-        pc.setEntity("pojo");
-        pc.setController("controller");
-        pc.setService("service");
-        pc.setMapper("mapper");
+//        pc.setEntity("pojo");
+//        pc.setController("controller");
+//        pc.setService("service");
+//        pc.setMapper("mapper");
+        //设置全部文件生成在一个文件夹中，方便删除
+        pc.setController("other");
+        pc.setEntity("other");
+        pc.setMapper("other");
+        pc.setService("other");
+        pc.setServiceImpl("other");
+        pc.setXml("other");
+
         generator.setPackageInfo(pc);
 
 
@@ -72,7 +80,7 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
 
         //设置生成哪些表,如果不设置的话，默认生成当前数据源中的所有表
-        //strategy.setInclude("roles");
+        strategy.setInclude("ea_teachTask");
 
         //设置包的命名规则
         strategy.setNaming(NamingStrategy.underline_to_camel);
